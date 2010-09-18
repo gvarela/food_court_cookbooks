@@ -1,0 +1,13 @@
+server {
+	server_name <%= @server_name %>;
+	listen 80;
+	
+  location / {
+    root <%= @root_dir %>/public;
+    passenger_enabled on;
+    
+    if (-f $document_root/system/maintenance.html) {
+      rewrite ^(.*)$ /system/maintenance.html break;
+    }
+  }
+}
