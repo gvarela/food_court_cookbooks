@@ -7,6 +7,7 @@ node[:apps].each do |app|
   
   # initialize bare git repo
   bash "create repo folder" do
+    puts app[:username]
     user app[:username]
     code "mkdir -p #{repos_path} && cd #{repos_path} && git init --bare"
     not_if { File.exists?(repos_path) }
