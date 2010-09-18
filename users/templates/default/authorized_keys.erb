@@ -1,2 +1,4 @@
-# Dropped off by Chef, thanks!
-<%= @ssh_keys %>
+<% @keys.each do |name, key| %>
+# <%= name %>
+<%= key %>
+<% end %>
