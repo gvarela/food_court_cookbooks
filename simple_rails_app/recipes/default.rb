@@ -17,7 +17,7 @@ node[:apps].each do |app|
     group app[:group] || app[:username]    
     cwd repos_path
     code "git init --bare"
-    not_if { File.exists?(repos_path) }
+    not_if { File.exists?("#{repos_path}/.git") }
   end
   
   template "#{repos_path}/hooks/post-receive" do
