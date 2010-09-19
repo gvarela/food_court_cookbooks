@@ -5,11 +5,17 @@ node[:apps].each do |app|
   repos_path = "#{home_path}/repos/#{app[:name]}.git"
   app_path = "#{home_path}/#{app[:name]}"
   
-  # initialize bare git repo
-  bash "create repo folder" do
+  directory "#{repos_path}" do
+    recursive true
     user app[:username]
     group app[:group] || app[:username]    
-    code "mkdir -p #{repos_path} && cd #{repos_path} && git init --bare"
+  end
+
+  # initialize bare git repo
+  bash "create repo folder" do
+    # user app[:username]
+    # group app[:group] || app[:username]    
+    code "cd #{repos_path} && git init --bare"
     not_if { File.exists?(repos_path) }
   end
   
