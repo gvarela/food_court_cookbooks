@@ -7,7 +7,7 @@ node[:apps].each do |app|
   
   directory "#{repos_path}" do
     recursive true
-    user app[:username]
+    owner app[:username]
     group app[:group] || app[:username]    
   end
 
