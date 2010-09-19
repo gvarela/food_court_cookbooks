@@ -1,21 +1,20 @@
 = DESCRIPTION:
 
-Installs a set of gems
+Installs a set of simple packages
 
 = REQUIREMENTS:
 
 == Cookbooks:
 
-* ruby_enterprise
 
 = ATTRIBUTES:
 
-* gems - array os hashes with :name, :version and :source for the gem
+* packages - array os hashes with :name, :version and :options for the package
 
 = LICENSE and AUTHOR:
 
-Author:: Fabio Akita (<fabioakita@gmail.com>)
-Copyright:: 2010, Prodigus Consulting.
+Author:: Gabe Varela (<gvarela@gmail.com>)
+Copyright:: 2010, Gabe Varela
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,4 +27,3 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-

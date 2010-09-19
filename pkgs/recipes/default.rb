@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: gems
+# Cookbook Name:: pkgs
 # Recipe:: default
 #
-# Copyright 2010, Prodigus Consulting
+# Copyright 2010, Gabe Varela
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,13 +16,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-node[:gems].each do |gem|
-  gem_package gem[:name] do
-    if gem[:version] && !gem[:version].empty?
-      version gem[:version]
+node[:pkgs].each do |pkg|
+  package pkg[:name] do
+    if pkg[:version] && !pkg[:version].empty?
+      version pkg[:version]
     end
-    if gem[:source]
-      source gem[:source]
+    if pkg[:options]
+      options pkg[:options]
     end
     action :install
   end
