@@ -7,8 +7,8 @@ node[:apps].each do |app|
   
   # initialize bare git repo
   bash "create repo folder" do
-    puts app[:username]
     user app[:username]
+    group app[:group] || app[:username]    
     code "mkdir -p #{repos_path} && cd #{repos_path} && git init --bare"
     not_if { File.exists?(repos_path) }
   end
@@ -29,6 +29,7 @@ node[:apps].each do |app|
   # set web app permissions
   bash "clone git repo" do
     user app[:username]
+    group app[:group] || app[:username]    
     code "cd #{home_path} && git clone #{repos_path} #{app[:name]}"
     not_if { File.exists?(app_path) }
   end
