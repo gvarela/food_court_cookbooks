@@ -1,12 +1,14 @@
-#!/bin/sh
+#!/bin/bash
 cd <%= @app_path %>
-env -i [ -d log ] || mkdir log
-env -i [ -d tmp ] || mkdir tmp
-env -i git reset --hard 
-env -i git pull origin <%= @git_branch %>
-env -i [ -f .gitmodules ] && git submodule update
-env -i rake db:migrate RAILS_ENV=production
-env -i touch tmp/restart.txt
+[ -d log ] || mkdir log
+[ -d tmp ] || mkdir tmp
+git reset --hard 
+git pull origin <%= @git_branch %>
+[ -f .gitmodules ] && git submodule update
+<%= @pre_migration %>
+rake db:migrate RAILS_ENV=production
+<%= @post_migration %>
+touch tmp/restart.txt
 
 #
 # An example hook script for the post-receive event
