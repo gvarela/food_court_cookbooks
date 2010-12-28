@@ -3,7 +3,7 @@ cd <%= @app_path %>
 [ -d log ] || mkdir log
 [ -d tmp ] || mkdir tmp
 env -i git reset --hard 
-env -i git pull origin <%= @git_branch %>
+env -i git pull
 [ -f .gitmodules ] && env -i git submodule update
 <%= @pre_migration %>
 rake db:migrate RAILS_ENV=production
