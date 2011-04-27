@@ -17,9 +17,9 @@
 # limitations under the License.
 #
 
-package "ruby" do
-  action :install
-end
+# package "ruby" do
+#   action :install
+# end
 
 extra_packages = case node[:platform]
   when "ubuntu","debian"
