@@ -4,6 +4,18 @@ server {
   root <%= @root_dir %>/public;
   passenger_enabled on;
 
+ #if ($host !~ ^((.*\.)?my-domain.com)$ ) {
+ #   return 444;
+ # }
+
+ # if ( $fastcgi_script_name ~ ..*/.*php ) {
+ #   return 403; 
+ # }
+
+ # if ( $fastcgi_script_name ~ ..*/.*cgi ) {
+ #   return 403; 
+ # }
+
 # This allows people to use images and css in their maintenance.html file
   if ($request_filename ~* \.(css|jpg|gif|png)$) {
     break;
