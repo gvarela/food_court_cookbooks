@@ -50,6 +50,8 @@ node[:apps].each do |app|
     group "root"
     mode 0644
     variables(
+      :use_ssl => app[:use_ssl],
+      :cert_name => app[:cert_name],
       :root_dir => app_path,
       :server_name => app[:server]
     )

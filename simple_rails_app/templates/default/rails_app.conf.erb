@@ -27,3 +27,44 @@ server {
     rewrite  ^(.*)$  /system/maintenance.html break;
   }
 }
+<% if @use_ssl %>
+server {
+  listen       443;
+  server_name <%= @server_name %>;
+  root <%= @root_dir %>/public;
+  passenger_enabled on;
+
+  ssl    on;
+  ssl_certificate    ssl/<%= @cert_name %>.crt;
+  ssl_certificate_key   ssl/<%= @cert_name %>.key;
+
+  # needed for HTTPS
+  proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
+  proxy_set_header Host $http_host;
+  proxy_redirect false;
+  proxy_max_temp_file_size 0;
+
+  # This allows people to use images and css in their maintenance.html file
+  if ($request_filename ~* \.(css|jpg|gif|png)$) {
+    break;
+  }
+
+  # Rewrite all the requests to the maintenance.html page if it exists.
+  if (-f $document_root/system/maintenance.html) {
+    return 503;
+  }
+
+  # set Expire header on assets: see http://developer.yahoo.com/performance/rules.html#expires
+  location ~ ^/(images|javascripts|stylesheets)/ {
+    expires 10y;
+  }
+
+  error_page 404 /404.html;
+  error_page 500 502 504 /500.html;
+
+  error_page 503 @503;
+  location @503 {
+    rewrite  ^(.*)$  /system/maintenance.html break;
+  }
+}
+<% end %>
